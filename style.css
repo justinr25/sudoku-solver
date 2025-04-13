@@ -41,8 +41,10 @@ h1 {
     grid-template-rows: repeat(9, 4rem); */
     grid-template-columns: repeat(9, min(7vh, 7vw));
     grid-template-rows: repeat(9, min(7vh, 7vw));
-    border: 2px solid black;
+    /* border: 2px solid black; */
     margin: 0;
+    gap: 0;
+    /* box-sizing: border-box; */
 }
 
 .cell {
@@ -53,6 +55,20 @@ h1 {
     text-align: center;
     font-size: 1.5rem;
     border: 1px solid #ccc;
+    margin: 0;
+}
+
+.cell:nth-child(3n) {
+    border-right: 2px solid black;
+}
+
+.cell:nth-child(9n) {
+    border-right: 1px solid #ccc;
+}
+
+.cell:nth-child(n + 19):nth-child(-n + 27),
+.cell:nth-child(n + 46):nth-child(-n + 54) {
+    border-bottom: 2px solid black;
 }
 
 .cell2 {
