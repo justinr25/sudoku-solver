@@ -1,0 +1,79 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --font-family: 'Roboto',  sans-serif;
+    --p-font: 1rem/120% var(--font-family);
+    --h1-font: bold 4rem/120% var(--font-family);
+    --button-font: bold 2rem var(--font-family);
+
+    color: black;
+    font: var(--p-font);
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font: var(--h1-font);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#sudoku-board {
+    display: grid;
+    /* grid-template-columns: repeat(9, 4rem);
+    grid-template-rows: repeat(9, 4rem); */
+    grid-template-columns: repeat(9, min(7vh, 7vw));
+    grid-template-rows: repeat(9, min(7vh, 7vw));
+    border: 2px solid black;
+    margin: 0;
+}
+
+.cell {
+    /* width: 4rem;
+    height: 4rem; */
+    /* width: auto;
+    height: auto; */
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid #ccc;
+}
+
+.cell2 {
+    background-color: #efefef;
+}
+
+.correct-cell {
+    background-color: #7aff88
+}
+
+.wrong-cell {
+    background-color: #ff4747
+}
+
+button {
+    font: var(--button-font);
+    border: none;
+    color: white;
+    background-color: #00b7ff;
+    margin: 4rem 0;
+    padding: 0 3em;
+    border-radius: 3rem;
+    cursor: pointer;
+}
