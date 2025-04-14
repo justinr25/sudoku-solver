@@ -164,7 +164,7 @@ async function solveSudoku() {
 
         // delay render updates occasionally to see backtracking process
         animationCounter++
-        if (animationCounter % 25 == 0) {
+        if (animationCounter % 100 == 0) {
             await new Promise(resolve => setTimeout(resolve))
         }
 
@@ -174,14 +174,14 @@ async function solveSudoku() {
         }
 
         renderCell(row, col, sudokuGrid[row][col], 'wrong') // red
-        if (animationCounter % 25 == 0) {
-            await new Promise(resolve => setTimeout(resolve))
+        if (animationCounter % 100 == 0) {
+            await new Promise(resolve => setTimeout(resolve, 25))
         }
 
         sudokuGrid[row][col] = ''
 
         renderCell(row, col, sudokuGrid[row][col]) // normal
-        if (animationCounter % 25 == 0) {
+        if (animationCounter % 100 == 0) {
             await new Promise(resolve => setTimeout(resolve))
         }
         // await new Promise(resolve => setTimeout(resolve)) // delay after removing number

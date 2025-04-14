@@ -79,6 +79,10 @@ h1 {
     background-color: #7aff88
 }
 
+.cell2.correct-cell {
+    background-color: #7ae685;
+}
+
 .wrong-cell {
     background-color: #ff4747
 }
@@ -95,7 +99,7 @@ button {
 }
 
 #solve-button {
-    
+
 }
 
 #reset-button {
