@@ -1,6 +1,7 @@
 // get DOM elements
 const sudokuBoard = document.querySelector('[data-sudoku-board]')
 const solveButton = document.querySelector('[data-solve-button]')
+const resetButton = document.querySelector('[data-reset-button]')
 
 const sudokuGrid = [
     [5, 3, '', '', 7, '', '', '', ''],
@@ -189,6 +190,22 @@ async function solveSudoku() {
     return false
 }
 
+function resetSudokuGrid() {
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            sudokuGrid[i][j] = ''
+        }
+    }
+}
+
+function resetSudokuBoard() {
+    cells.forEach(cell => {
+        cell.value = ''
+        cell.classList.remove('correct-cell')
+        cell.classList.remove('wrong-cell')
+    })
+}
+
 // create sudoku board
 createSudokuBoard()
 
@@ -212,9 +229,15 @@ cells.forEach((cell, cellIdx) => {
 solveButton.addEventListener('click', async () => {
     renderSudokuGrid()
     console.log(await solveSudoku())
-    console.log(sudokuGrid)
+    // console.log(sudokuGrid)
     renderSudokuGrid() // render sudoku grid
 })
+
+resetButton.addEventListener('click', () => {
+    resetSudokuGrid()
+    resetSudokuBoard()
+})
+
 // solveSudoku()
 // console.log(sudokuGrid)
 // solved = [
@@ -238,4 +261,3 @@ solveButton.addEventListener('click', async () => {
 // index = row*9 + col
 
 // TODO: button to generate unsolved board
-// TODO: clear board button

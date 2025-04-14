@@ -88,8 +88,16 @@ button {
     border: none;
     color: white;
     background-color: #00b7ff;
-    margin: 4rem 0;
+    margin: 4rem 2rem;
     padding: 0 3em;
     border-radius: 3rem;
     cursor: pointer;
+}
+
+#solve-button {
+    
+}
+
+#reset-button {
+    
 }
