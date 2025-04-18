@@ -6,9 +6,12 @@
 
 :root {
     --font-family: 'Roboto',  sans-serif;
-    --p-font: 1rem/120% var(--font-family);
-    --h1-font: bold 4rem/120% var(--font-family);
-    --button-font: bold 2rem var(--font-family);
+    --p-font: 1rem/115% var(--font-family);
+    /* --h1-font: bold 4rem/120% var(--font-family);
+    --button-font: bold 2rem var(--font-family); */
+    --h1-font: bold clamp(1.5rem, 8vw, 4rem) var(--font-family);
+    --button-font: bold clamp(1rem, 5vw, 2rem) var(--font-family);
+
 
     color: black;
     font: var(--p-font);
@@ -32,7 +35,8 @@ body {
 h1 {
     font: var(--h1-font);
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1em;
+    text-wrap: wrap;
 }
 
 #sudoku-board {
@@ -89,7 +93,10 @@ h1 {
 
 .button-container {
     display: flex;
-    gap: 4rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2rem;
 }
 
 button {
@@ -97,9 +104,7 @@ button {
     border: none;
     color: white;
     background-color: #00b7ff;
-    margin: 4rem 0;
-    /* padding: 0 3em; */
-    padding: 0 1em;
+    padding: 0.5em 1em;
     border-radius: 3rem;
     cursor: pointer;
 }
