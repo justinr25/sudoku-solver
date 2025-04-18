@@ -87,13 +87,19 @@ h1 {
     background-color: #ff4747
 }
 
+.button-container {
+    display: flex;
+    gap: 4rem;
+}
+
 button {
     font: var(--button-font);
     border: none;
     color: white;
     background-color: #00b7ff;
-    margin: 4rem 2rem;
-    padding: 0 3em;
+    margin: 4rem 0;
+    /* padding: 0 3em; */
+    padding: 0 1em;
     border-radius: 3rem;
     cursor: pointer;
 }
