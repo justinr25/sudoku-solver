@@ -4,39 +4,7 @@ const solveButton = document.querySelector('[data-solve-button]')
 const resetButton = document.querySelector('[data-reset-button]')
 const generatePuzzleButton = document.querySelector('[data-generate-puzzle-button]')
 
-// const sudokuGrid = [
-//     [5, 3, '', '', 7, '', '', '', ''],
-//     [6, '', '', 1, 9, 5, '', '', ''],
-//     ['', 9, 8, '', '', '', '', 6, ''],
-//     [8, '', '', '', 6, '', '', '', 3],
-//     [4, '', '', 8, '', 3, '', '', 1],
-//     [7, '', '', '', 2, '', '', '', 6],
-//     ['', 6, '', '', '', '', 2, 8, ''],
-//     ['', '', '', 4, 1, 9, '', '', 5],
-//     ['', '', '', '', 8, '', '', 7, 9]
-// ]
-// const sudokuGrid = [
-//     [5, 3, 4, 6, 7, 8, 9, 1, ''],
-//     [6, 7, 2, 1, 9, 5, 3, 4, 8],
-//     [1, 9, 8, 3, 4, 2, 5, 6, 7],
-//     [8, 5, 9, 7, 6, 1, 4, 2, 3],
-//     [4, 2, 6, 8, 5, 3, 7, 9, 1],
-//     [7, 1, 3, 9, 2, 4, 8, 5, 6],
-//     [9, 6, 1, 5, 3, 7, 2, 8, 4],
-//     [2, 8, 7, 4, 1, 9, 6, 3, 5],
-//     [3, 4, 5, 2, 8, 6, 1, 7, 9]
-// ]
-// const sudokuGrid = [
-//     [2, 9, 5, 7, 4, 3, 8, 6, 1],
-//     [4, 3, 1, 8, 6, 5, 9, '', ''],
-//     [8, 7, 6, 1, 9, 2, 5, 4, 3],
-//     [3, 8, 7, 4, 5, 9, 2, 1, 6],
-//     [6, 1, 2, 3, 8, 7, 4, 9, 5],
-//     [5, 4, 9, 2, 1, 6, 7, 3, 8],
-//     [7, 6, 3, 5, 3, 4, 1, 8, 9],
-//     [9, 2, 8, 6, 7, 1, 3, 5, 4],
-//     [1, 5, 4, 9, 3, 8, 6, '', ''],
-// ]
+// initialize sudoku grid
 const sudokuGrid = new Array(9).fill().map(() => new Array(9).fill(''))
 
 // define function to create sudoku board in DOM
@@ -61,41 +29,7 @@ function createSudokuBoard() {
     }
 }
 
-// define function to update sudoku grid from user input
-// function updateSudokuGrid() {
-//     for (let i = 0; i < 9; i++) {
-//         for (let j = 0; j < 9; j++) {
-//             const cellIdx = i*9 + j
-//             if (cells[cellIdx].value != '') sudokuGrid[i][j] = parseInt(cells[cellIdx].value, 10)
-//         }
-//     }
-// }
-
-// define function to check if sudoku grid is valid
-// function isValidGrid(grid) {
-//     const rows = Array.from({ length: 9 }, () => new Set())
-//     const cols = Array.from({ length: 9 }, () => new Set())
-//     const boxes = Array.from({ length: 9 }, () => new Set())
-    
-//     for (let i = 0; i < 9; i++) {
-//         for (let j = 0; j < 9; j++) {
-//             if (grid[i][j] == '') {
-//                 continue
-//             }
-
-//             const boxIdx = Math.floor(i / 3) * 3 + Math.floor(j / 3)
-//             if (rows[i].has(grid[i][j]) || cols[j].has(grid[i][j]) || boxes[boxIdx].has(grid[i][j])) { 
-//                 return false
-//             }
-
-//             rows[i].add(grid[i][j])
-//             cols[j].add(grid[i][j])
-//             boxes[boxIdx].add(grid[i][j])
-//         }
-//     }
-
-//     return true
-// }
+// define function to check if a sudoku grid is valid
 function isValidGrid(grid) {
     const rows = new Array(9).fill().map(() => new Array(10).fill(false))
     const cols = new Array(9).fill().map(() => new Array(10).fill(false))
@@ -120,7 +54,6 @@ function isValidGrid(grid) {
 
     return true
 }
-// console.log(isValidGrid(sudokuGrid))
 
 // define function to check if grid is filled
 function isGridFilled(grid) {
@@ -132,6 +65,7 @@ function isGridFilled(grid) {
     return true
 }
 
+// define function to find next cell that is not already occupied by a number
 function findNextEmptyCell(grid) {
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
@@ -167,9 +101,8 @@ function renderSudokuGrid(solve=true) {
     }
 }
 
-let animationCounter = 0
-
 // define function to solve sudoku board with animation
+let animationCounter = 0
 async function solveSudoku() {
     // if board is filled: return true
     const nextCell = findNextEmptyCell(sudokuGrid)
@@ -182,7 +115,6 @@ async function solveSudoku() {
     for (let number = 1; number <= 9; number++) {
         sudokuGrid[row][col] = number
         renderCell(row, col, sudokuGrid[row][col], 'correct') // green
-        // await new Promise(resolve => setTimeout(resolve)) // delay after inserting number
 
         // delay render updates occasionally to see backtracking process
         animationCounter++
@@ -206,12 +138,12 @@ async function solveSudoku() {
         if (animationCounter % 110 == 0) {
             await new Promise(resolve => setTimeout(resolve))
         }
-        // await new Promise(resolve => setTimeout(resolve)) // delay after removing number
     }
 
     return false
 }
 
+// define function to reset sudoku grid
 function resetSudokuGrid() {
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
@@ -220,6 +152,7 @@ function resetSudokuGrid() {
     }
 }
 
+// define function to reset sudoku board in DOM
 function resetSudokuBoard() {
     cells.forEach(cell => {
         cell.value = ''
@@ -228,6 +161,8 @@ function resetSudokuBoard() {
     })
 }
 
+// define function to randomly shuffle an array
+// source: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
 function shuffleArray(array) {
     let curIdx = array.length
 
@@ -240,13 +175,14 @@ function shuffleArray(array) {
     return array
 }
 
+// define function to check if placing a number in a cell results in a valid sudoku grid
 function isValidCell(row, col, val, rows, cols, boxes) {
     const boxIdx = Math.floor(row / 3) * 3 + Math.floor(col / 3)
     return !rows[row][val] && !cols[col][val] && !boxes[boxIdx][val]
 }
 
+// define function to solve an empty sudoku grid with an aspect of randomness
 const possibleNums = [1,2,3,4,5,6,7,8,9]
-
 function solveSudokuRandom(rows, cols, boxes) {
     const nextCell = findNextEmptyCell(sudokuGrid)
     if (!nextCell) return true
@@ -254,7 +190,6 @@ function solveSudokuRandom(rows, cols, boxes) {
     const [row, col] = nextCell
     const boxIdx = Math.floor(row / 3) * 3 + Math.floor(col / 3)
 
-    // for (let number = 1; number <= 9; number++) {
     for (const number of shuffleArray([...possibleNums])) {
         if (isValidCell(row, col, number, rows, cols, boxes)) {
             sudokuGrid[row][col] = number
@@ -276,34 +211,7 @@ function solveSudokuRandom(rows, cols, boxes) {
     return false
 }
 
-// function countSudokuSolutions(grid, rows, cols, boxes) {
-//     const nextCell = findNextEmptyCell(grid)
-//     if (!nextCell) return 1
-
-//     let res = 0
-
-//     const [row, col] = nextCell
-//     const boxIdx = Math.floor(row / 3) * 3 + Math.floor(col / 3)
-
-//     for (let number = 1; number <= 9; number++) {
-//         if (isValidCell(row, col, number, rows, cols, boxes)) {
-//             grid[row][col] = number
-//             rows[row][number] = true
-//             cols[col][number] = true
-//             boxes[boxIdx][number] = true
-
-//             res += countSudokuSolutions(grid, rows, cols, boxes)
-
-//             grid[row][col] = ''
-//             rows[row][number] = false
-//             cols[col][number] = false
-//             boxes[boxIdx][number] = false
-//         }
-//     }
-
-//     return res
-// }
-
+// define function to check if a unique solution exists for the sudoku grid
 let foundFirstSolution = false
 function uniqueSolutionExists(rows, cols, boxes) {
     let numSolutions = 0
@@ -341,6 +249,8 @@ function uniqueSolutionExists(rows, cols, boxes) {
     return numSolutions == 1
 }
 
+// define function to generate a random sudoku puzzle with a unique solution
+// source: https://www.101computing.net/sudoku-generator-algorithm/
 function generatePuzzle(attempts) {
     resetSudokuGrid()
     resetSudokuBoard()
@@ -402,36 +312,15 @@ cells.forEach((cell, cellIdx) => {
 solveButton.addEventListener('click', async () => {
     renderSudokuGrid()
     await solveSudoku()
-    console.log(sudokuGrid)
 })
 
+// reset sudoku board when reset button is clicked
 resetButton.addEventListener('click', () => {
     resetSudokuGrid()
     resetSudokuBoard()
 })
 
+// generate a random sudoku puzzle when generate puzzle button is clicked
 generatePuzzleButton.addEventListener('click', () => {
     generatePuzzle(attempts=9)
 })
-
-// solveSudoku()
-// console.log(sudokuGrid)
-// solved = [
-//     [5, 3, 4, 6, 7, 8, 9, 1, 2],
-//     [6, 7, 2, 1, 9, 5, 3, 4, 8],
-//     [1, 9, 8, 3, 4, 2, 5, 6, 7],
-//     [8, 5, 9, 7, 6, 1, 4, 2, 3],
-//     [4, 2, 6, 8, 5, 3, 7, 9, 1],
-//     [7, 1, 3, 9, 2, 4, 8, 5, 6],
-//     [9, 6, 1, 5, 3, 7, 2, 8, 4],
-//     [2, 8, 7, 4, 1, 9, 6, 3, 5],
-//     [3, 4, 5, 2, 8, 6, 1, 7, 9]
-// ]
-// console.log(isValidGrid(solved))
-
-// index --> row, col
-// row = index // 9
-// col = index % 9
-
-// row, col --> index
-// index = row*9 + col
